@@ -1,0 +1,28 @@
+[Unit]
+Description=RTSP camera recorder (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=CAM_NAME=%i
+Environment=RTSP_URL=rtsp://user:pass@192.168.1.10:554/stream
+Environment=OUT_DIR=/var/cameras/%i
+
+ExecStart=/opt/cam-recorder/record.sh
+Restart=always
+RestartSec=3
+
+# Чтобы systemd не убивал ffmpeg слишком рано
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+# Логи в journal
+StandardOutput=journal
+StandardError=journal
+
+# Полезно для долгоживущего процесса
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
