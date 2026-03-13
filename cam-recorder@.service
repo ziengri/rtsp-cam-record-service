@@ -1,0 +1,23 @@
+[Unit]
+Description=RTSP recorder for %i
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/cam-recorder/%i.env
+ExecStart=/opt/cam-recorder/record.sh
+
+Restart=always
+RestartSec=3
+
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+StandardOutput=journal
+StandardError=journal
+
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

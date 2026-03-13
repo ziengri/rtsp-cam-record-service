@@ -1,4 +1,5 @@
-sudo mkdir -p /opt/cam-recorder
-sudo nano /opt/cam-recorder/record.sh
-sudo chmod +x /opt/cam-recorder/record.sh
+chmod +x /opt/cam-recorder/record.sh
 # journalctl -u cam-recorder@cam1 -f
+# sudo systemctl daemon-reload
+# sudo systemctl enable --now cam-recorder@cam1
+# sudo systemctl status cam-recorder@cam1
